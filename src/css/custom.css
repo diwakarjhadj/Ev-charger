@@ -1,0 +1,97 @@
+/* Define the bottom-to-top animation */
+@keyframes moveFromBottomToTop {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(-40%);
+    }
+  } 
+
+
+  @keyframes moveFromRightToLeft {
+    from {
+      transform: translateX(0%);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  } 
+  
+  /* Style for overlaying SVG on top of the image */
+  .image-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .image-container img {
+    display: block; /* Ensure image takes up the full container */
+  }
+  
+  .overlay-svg {
+    position: absolute;
+    top: 45%;
+    left: 31%;
+    transform: translate(-50%, -50%);
+    animation: moveFromBottomToTop 5s ease-in-out forwards;
+    transform-origin: center; /* Rotate around the center */
+  }
+  .black-color{
+    background: #000;
+  }
+  .status-text{
+    position: absolute;
+    top: 18%;
+    left: 40%;
+    font-size: 50px;
+    color: #fff;
+  }
+
+  .charging-initialized{
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    font-size: 40px;
+    color: #fff;
+  }
+  .charging{
+    position: absolute;
+    top: 20%;
+    left: 42%;
+    font-size: 50px;
+    color: #fff;
+  }
+  .charging-overlay{
+    position: absolute;
+    top: 45%;
+    left: 31%;
+    /* transform: translate(-50%, -50%  ); */
+    /* animation: moveFromBottomToTop 5s ease-in-out forwards; */
+    transform-origin: center;
+  }
+  .charge-end{
+    position: absolute;
+    top: 20%;
+    left: 42%;
+    font-size: 30px;
+    color: #fff;
+  }
+  .charge-finish{
+    position: absolute;
+    top: 25%;
+    left: 42%;
+    font-size: 30px;
+    color: red;
+  }
+  .charging-overlay-finished{
+    position: absolute;
+    top: 45%;
+    left: 31%;
+    /* transform: translate(-50%, -50%  ); */
+    animation: moveFromRightToLeft 5s ease-in-out forwards;
+    transform-origin: center;
+  }
+
+  
