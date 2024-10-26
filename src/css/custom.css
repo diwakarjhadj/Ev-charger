@@ -94,4 +94,17 @@
     transform-origin: center;
   }
 
-  
+  .thank-you{
+    position: absolute;
+    top: 20%;
+    left: 35%;
+    font-size: 30px;
+    color: #fff;
+  }
+  .come-again{
+    position: absolute;
+    top: 25%;
+    left: 42%;
+    font-size: 30px;
+    color: green;
+  }

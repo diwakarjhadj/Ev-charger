@@ -16,6 +16,7 @@ const App = () => {
   const [showEmpty, setShowEmpty] = useState(false);
   const [startSlide, setStartSlide] = useState(false);
   const [isBikeHidden, setIsBikeHidden] = useState(false);
+  const [showThankYou, setShowThankYou] = useState(false); // New state for Thank You message
 
   const handleAnimationEnd = () => {
     setIsParked(true);
@@ -52,7 +53,7 @@ const App = () => {
           if (prev >= 100) {
             clearInterval(chargingInterval); // Clear interval if charging is complete
             setShowEmpty(true); // Show empty state when charging is complete
-            return 10; // Ensure it doesn't exceed 100
+            return 100; // Ensure it doesn't exceed 100
           }
           return prev + 1; // Increment by 1
         });
@@ -72,6 +73,13 @@ const App = () => {
   // Handle animation end for hiding bike
   const handleSlideEnd = () => {
     setIsBikeHidden(true); // Hide the bike once animation completes
+
+    // Show "Thank You" message after 2 seconds of showing "Your EV is Charged"
+    const thankYouTimer = setTimeout(() => {
+      setShowThankYou(true);
+    }, 2000);
+
+    return () => clearTimeout(thankYouTimer); // Clean up timeout
   };
 
   return (
@@ -88,14 +96,14 @@ const App = () => {
         <div>
           <Empty />
           <div className='charging-initialized'>
-            Initialized Charging
+            Initialized Charging...
           </div>
         </div>
       ) : !showEmpty ? (
         <div>
           <RotateBike />
           <SingleBike className='charging-overlay' />
-          <div style={{  width: '100px',height: '100px',marginTop: '20px',position: 'absolute',top: '28%',left: '45%', }}>
+          <div style={{ width: '100px', height: '100px', marginTop: '20px', position: 'absolute', top: '28%', left: '45%' }}>
             <CircularProgressbar
               value={chargingPercentage}
               text={`${chargingPercentage}%`}
@@ -104,23 +112,29 @@ const App = () => {
                 pathColor: 'green',
                 textColor: '#fff',
                 trailColor: '#d6d6d6',
-
               })}
             />
           </div>
-          <div className='charging'>Charging</div>
+          <div className='charging'>Charging...</div>
         </div>
       ) : (
         <div>
           <Empty />
           <SingleBike
-            className={`${startSlide ? 'charging-overlay-finished' : ''} ${
-              isBikeHidden ? 'hidden' : ''
-            }`}
+            className={`${startSlide ? 'charging-overlay-finished' : ''} ${isBikeHidden ? 'hidden' : ''}`}
             onAnimationEnd={handleSlideEnd}
           />
-          <div className='charge-end'>Your EV is Charged</div>
-          <div className='charge-finish'>Go Wireless</div>
+          {showThankYou ? ( // Conditionally render Thank You message
+          <>
+            <div className='thank-you'>Thank You For Using Our Service!</div>
+            <div className='come-again'> Come Again</div>
+          </>
+          ) : (
+            <>
+              <div className='charge-end'>Your EV is Charged</div>
+              <div className='charge-finish'>Go Wireless</div>
+            </>
+          )}
         </div>
       )}
     </div>
@@ -128,6 +142,3 @@ const App = () => {
 };
 
 export default App;
-
-
-
